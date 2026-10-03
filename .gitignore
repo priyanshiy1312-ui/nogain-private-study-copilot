@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+data/home/nogain.db
+.pytest_cache/
+sandbox/app/
+sandbox/seed/
+policy/openshell_policy.yaml

@@ -1,0 +1,7 @@
+Job posting
+Data Engineering Intern - Northwind Labs
+We are looking for a student who enjoys data and Python.
+Requirements:
+- Python and SQL
+- Familiarity with relational databases
+- Good communication skills

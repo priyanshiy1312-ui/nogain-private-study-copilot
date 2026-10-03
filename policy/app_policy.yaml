@@ -1,0 +1,14 @@
+# App-layer policy (OpenShell does not do per-tool toggles; this is our own layer).
+tools:
+  read_file:          {enabled: true,  risk: low}
+  list_files:         {enabled: true,  risk: low}
+  http_get:           {enabled: true,  risk: low}
+  save_memory:        {enabled: true,  risk: low}
+  draft_email:        {enabled: true,  risk: low}
+  http_post:          {enabled: true,  risk: high, requires_approval: true}
+  submit_application: {enabled: true,  risk: high, requires_approval: true}
+  send_email:         {enabled: false, risk: high, requires_approval: true}
+untrusted_content:
+  # Actions proposed by the model while untrusted text (job posts, web pages) is in context
+  # are "tainted". When true, tainted + risk:high is denied outright.
+  block_risky_tools_when_tainted: true

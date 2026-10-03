@@ -1,0 +1,12 @@
+{
+  "name": "Alex Student",
+  "skills": ["Python", "SQL", "Flask", "PostgreSQL", "Git"],
+  "experience": [
+    {"id": "exp-1", "title": "Teaching assistant, CS101", "org": "Univ. of Example",
+     "bullets": ["Ran a weekly lab for 40 students", "Wrote autograder tests in Python"]},
+    {"id": "exp-2", "title": "Intern", "org": "Acme Analytics",
+     "bullets": ["Built a SQL reporting pipeline that cut weekly report time from 3h to 20min"]},
+    {"id": "exp-3", "title": "Project: campus bike-share app", "org": "Personal",
+     "bullets": ["Built a Flask + PostgreSQL web app with 200 active users"]}
+  ]
+}

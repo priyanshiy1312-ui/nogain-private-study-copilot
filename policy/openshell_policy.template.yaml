@@ -1,0 +1,43 @@
+# NVIDIA OpenShell sandbox policy (schema v1, written from docs.nvidia.com/openshell policy schema reference).
+# __NOGAIN_HOME__ is replaced by scripts/render_policy.py (OpenShell needs absolute paths, and
+# rejects unknown fields, so this file must contain ONLY OpenShell fields).
+# DRAFT: validate with the openshell CLI before relying on it (see README "Verify").
+version: 1
+
+filesystem_policy:
+  include_workdir: false
+  read_only: [/usr, /lib, /etc]
+  read_write:
+    - __NOGAIN_HOME__/notes
+    - __NOGAIN_HOME__/cv
+    - __NOGAIN_HOME__/jobs
+    - /tmp
+
+landlock:
+  compatibility: best_effort   # use hard_requirement once Landlock is confirmed on your kernel
+
+network_policies:
+  # Hosted inference: only the two endpoints we need, only from the Python interpreter.
+  nebius_inference:
+    endpoints:
+      - host: api.tokenfactory.nebius.com
+        port: 443
+        protocol: rest
+        enforcement: enforce        # default is "audit" = log but ALLOW. We want enforce.
+        rules:
+          - allow: {method: POST, path: /v1/chat/completions}
+          - allow: {method: GET,  path: /v1/models}
+    binaries:
+      - path: /usr/bin/python3.12   # real path, not the python3 symlink (Ubuntu 24.04)
+
+  # Example "approved job site" (read-only). Replace with real domains you trust.
+  approved_job_sites:
+    endpoints:
+      - host: boards.greenhouse.io
+        port: 443
+        protocol: rest
+        enforcement: enforce
+        access: read-only
+    binaries:
+      - path: /usr/bin/python3.12
+# Everything else (e.g. evil.example) is denied by default and shows up in `openshell logs`.
